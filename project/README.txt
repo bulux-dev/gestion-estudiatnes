@@ -1,5 +1,6 @@
 # Gestión de Cursos y Alumnos
 
+
 ## 1. Introducción
 Este proyecto es una aplicación web para la gestión de cursos y alumnos. Permite a los usuarios realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en cursos y alumnos, y gestionar la inscripción de alumnos en cursos. El frontend está desarrollado en Angular, mientras que el backend utiliza Node.js, Express, y una base de datos MySQL/MariaDB.
 
@@ -14,6 +15,15 @@ Este proyecto es una aplicación web para la gestión de cursos y alumnos. Permi
 ## 3. Estructura del Proyecto
 
 ### 3.1. Backend
+
+
+comandos para iniciar el proyecto
+-cd gestion-cursos-alumnos
+-npm install
+-npm init -y
+-npm install express mysql2
+
+
 - **curso-alumno:**
   - `server.js`: Archivo principal del servidor donde se configuran y ejecutan las rutas de la API.
   - `package.json`: Contiene las dependencias y scripts de npm.
@@ -22,6 +32,31 @@ Este proyecto es una aplicación web para la gestión de cursos y alumnos. Permi
   - `routes/`: Define las rutas para las diferentes operaciones CRUD (`cursos.js`, `alumnos.js`, `inscripciones.js`).
   - `controllers/`: Controladores que manejan la lógica de negocio para cada ruta.
   - Base de datos: gestion_cursos_alumnos
+**crear base de datos **
+CREATE DATABASE gestion_cursos_alumnos;
+USE gestion_cursos_alumnos;
+**Codigo para tablas**
+CREATE TABLE cursos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255) NOT NULL,
+  codigo VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE alumnos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255) NOT NULL,
+  matricula VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE inscripciones (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  curso_id INT,
+  alumno_id INT,
+  FOREIGN KEY (curso_id) REFERENCES cursos(id),
+  FOREIGN KEY (alumno_id) REFERENCES alumnos(id),
+  UNIQUE (curso_id, alumno_id)
+);
+
        - Tablas y componentes:
 Alumnos:
 +-----------+--------------+------+-----+---------+----------------+
@@ -53,6 +88,13 @@ Inscripcions:
 
 
 ### 3.2. Frontend
+
+cd gestion-cursos-alumnos
+comandos para instalar:
+-npm install
+-ng add @angular/material
+-npm install @angular/forms @angular/common
+
 - **gestion-cursos-alumnos:**
   - `src/`: Contiene todos los archivos fuente de Angular.
   - `app/`: Directorio principal de la aplicación Angular.
