@@ -1,0 +1,45 @@
+<h2>Cursos</h2>
+<ul>
+  <li *ngFor="let curso of cursos">
+    {{ curso.nombre }} ({{ curso.codigo }})
+  </li>
+</ul>
+
+<style>
+
+
+  /* Estilo para el título de la sección de cursos */
+h2 {
+  font-family: 'Arial', sans-serif;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Estilo para la lista de cursos */
+ul {
+  list-style-type: none; /* Elimina los puntos de la lista */
+  padding: 0;
+  margin: 0;
+}
+
+/* Estilo para cada ítem de la lista */
+li {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #34495e;
+  background-color: #ecf0f1;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Estilo al pasar el cursor sobre cada ítem */
+li:hover {
+  background-color: #bdc3c7;
+  transform: scale(1.02);
+}
+
+</style>

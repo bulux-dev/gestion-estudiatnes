@@ -1,0 +1,29 @@
+<h2>Inscripciones</h2>
+<div>
+  <h3>Cursos</h3>
+  <ul>
+    <li *ngFor="let curso of cursos">
+      {{ curso.nombre }} ({{ curso.codigo }})
+    </li>
+  </ul>
+</div>
+<div>
+  <h3>Alumnos</h3>
+  <ul>
+    <li *ngFor="let alumno of alumnos">
+      {{ alumno.nombre }} ({{ alumno.matricula }})
+    </li>
+  </ul>
+</div>
+<div>
+  <h3>Inscribir Alumno en Curso</h3>
+  <label for="curso">Curso:</label>
+  <select id="curso">
+    <option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nombre }}</option>
+  </select>
+  <label for="alumno">Alumno:</label>
+  <select id="alumno">
+    <option *ngFor="let alumno of alumnos" [value]="alumno.id">{{ alumno.nombre }}</option>
+  </select>
+  <button (click)="inscribir(cursoId, alumnoId)">Inscribir</button>
+</div>

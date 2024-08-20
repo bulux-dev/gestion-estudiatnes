@@ -1,0 +1,81 @@
+<h2>Asignación de Cursos</h2>
+
+<div class="container">
+  <!-- Selección de alumno -->
+  <div class="selector">
+    <label for="alumno">Seleccionar Alumno:</label>
+    <select id="alumno" [(ngModel)]="selectedAlumno">
+      <option *ngFor="let alumno of alumnos" [value]="alumno.id">
+        {{ alumno.nombre }} ({{ alumno.matricula }})
+      </option>
+    </select>
+  </div>
+
+  <!-- Selección de curso -->
+  <div class="selector">
+    <label for="curso">Seleccionar Curso:</label>
+    <select id="curso" [(ngModel)]="selectedCurso">
+      <option *ngFor="let curso of cursos" [value]="curso.id">
+        {{ curso.nombre }} ({{ curso.codigo }})
+      </option>
+    </select>
+  </div>
+
+  <!-- Botón para asignar curso -->
+  <button (click)="asignarCurso()">Asignar Curso</button>
+
+  <!-- Mensaje de éxito -->
+  <p *ngIf="successMessage">{{ successMessage }}</p>
+</div>
+
+
+<!-- Estilos básicos -->
+<style>
+  /* Estilo para el título */
+h2 {
+  font-family: 'Arial', sans-serif;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Contenedor para los selectores y botón */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Estilo para los selectores */
+.selector {
+  margin: 10px 0;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Estilo para el botón */
+button {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  background-color: #3498db;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+/* Estilo para el mensaje de éxito */
+p {
+  color: #27ae60;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+</style>
