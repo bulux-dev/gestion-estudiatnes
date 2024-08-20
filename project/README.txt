@@ -16,6 +16,8 @@ Este proyecto es una aplicación web para la gestión de cursos y alumnos. Permi
 
 ### 3.1. Backend
 
+iniciar servidor MariaDB desde la consola 
+net start mariadb
 
 comandos para iniciar el proyecto
 -cd gestion-cursos-alumnos
