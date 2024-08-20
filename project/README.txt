@@ -26,6 +26,9 @@ comandos para iniciar el proyecto
 -npm install express mysql2
 
 
+para iniciar el servidor utilizar
+-node server.js
+
 - **curso-alumno:**
   - `server.js`: Archivo principal del servidor donde se configuran y ejecutan las rutas de la API.
   - `package.json`: Contiene las dependencias y scripts de npm.
@@ -96,6 +99,9 @@ comandos para instalar:
 -npm install
 -ng add @angular/material
 -npm install @angular/forms @angular/common
+
+para iniciar el servidor utilizar:
+-ng serve
 
 - **gestion-cursos-alumnos:**
   - `src/`: Contiene todos los archivos fuente de Angular.
