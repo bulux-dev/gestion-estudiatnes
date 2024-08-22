@@ -45,7 +45,7 @@ router.put('/cursos/:id', async (req, res) => {
   const { nombre, codigo } = req.body;
   try {
     const result = await db.query(
-      `UPDATE cursos SET nombre = '${req.body.nombre}', codigo = '${req.body.codigo}' WHERE id = ${req.body.id}`)
+      `UPDATE cursos SET nombre = "${req.body.nombre}", codigo = ${req.body.codigo} WHERE id = ${req.body.id}`)
     if (result[0].affectedRows > 0) {
       res.json({ message: 'Curso actualizado correctamente' });
     } else {
@@ -61,8 +61,7 @@ router.post('/cursos', async (req, res) => {
   const { nombre, codigo } = req.body;
   try {
     const result = await db.query(
-      'INSERT INTO cursos (nombre, codigo) VALUES (?, ?)',
-      [nombre, codigo]
+      `INSERT INTO cursos (nombre, codigo) VALUES (${req.body.nombre},${req.body.codigo})`,
     );
     if (result[0].affectedRows > 0) {
       res.json({ message: 'Curso agregado correctamente', id: result[0].insertId });
