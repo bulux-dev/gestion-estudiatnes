@@ -4,7 +4,7 @@ import { GestionCursosComponent } from './gestion-cursos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
+//import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     HttpClientModule,
-    BrowserModule    
+    BrowserModule   , 
+    FormsModule
   ]
 })
 export class GestionCursosModule { }

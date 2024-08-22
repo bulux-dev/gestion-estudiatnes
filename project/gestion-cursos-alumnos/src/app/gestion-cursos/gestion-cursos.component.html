@@ -1,4 +1,3 @@
-<!-- Título de la página -->
 <h2>Gestión de Cursos</h2>
 
 <!-- Botón para agregar un nuevo curso -->
@@ -18,8 +17,8 @@
       <td>{{ curso.nombre }}</td>
       <td>{{ curso.codigo }}</td>
       <td>
-        <button (click)="openAddCursosModal()">Editar</button>
-        <button (click)="deleteCurso(curso.id)">Eliminar</button>
+        <button (click)="openEditCursosModal(curso)">Editar</button>
+        <button (click)="deleteCurso(curso.codigo)">Eliminar</button>
       </td>
     </tr>
   </tbody>
@@ -33,11 +32,11 @@
     <form (ngSubmit)="isEditing ? updateCurso() : addCurso()">
       <div>
         <label for="nombre">Nombre:</label>
-        <input id="nombre" [()]="currentCurso.nombre" name="nombre" required />
+        <input id="nombre" [(ngModel)]="currentCurso.nombre" name="nombre" required />
       </div>
       <div>
         <label for="codigo">Código:</label>
-        <input id="codigo" [()]="currentCurso.codigo" name="codigo" required />
+        <input id="codigo" [(ngModel)]="currentCurso.codigo" name="codigo" required />
       </div>
       <button type="submit">{{ isEditing ? 'Actualizar' : 'Agregar' }}</button>
     </form>

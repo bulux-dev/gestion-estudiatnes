@@ -16,10 +16,6 @@ import { GestionCursosModule } from './gestion-cursos.module';
   styleUrls: ['./gestion-cursos.component.css']
 })
 
-
-
-
-
 export class GestionCursosComponent implements OnInit {
   cursos: Curso[] = [];
   showModal = false;

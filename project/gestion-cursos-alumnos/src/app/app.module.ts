@@ -8,3 +8,17 @@ import { GestionInscripcionesComponent } from './gestion-inscripciones/gestion-i
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+@NgModule({
+    declarations: [
+      AppComponent,
+      GestionCursosComponent
+    ],
+    imports: [
+      BrowserModule,
+      FormsModule, // Asegúrate de importar FormsModule aquí
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
+  })
+  export class AppModule { }
