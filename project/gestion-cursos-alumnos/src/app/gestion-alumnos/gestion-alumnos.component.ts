@@ -58,8 +58,8 @@ export class GestionAlumnosComponent implements OnInit {
     });
   }
 
-  deleteAlumno(id: number): void {
-    this.alumnosService.deleteAlumno(id).subscribe(() => {
+  deleteAlumno(id: string): void {
+    this.alumnosService.deleteAlumno(parseInt(id)).subscribe(() => {
       this.loadAlumnos();
     });
   }
