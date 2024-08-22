@@ -15,20 +15,62 @@ import { GestionCursosModule } from './gestion-cursos.module';
   templateUrl: './gestion-cursos.component.html',
   styleUrls: ['./gestion-cursos.component.css']
 })
-export class GestionCursosComponent implements OnInit {
-  cursos: any[] = [];  // Inicializa la variable para almacenar los cursos
 
-  constructor(private cursoService: CursosService) { }
+
+
+
+
+export class GestionCursosComponent implements OnInit {
+  cursos: Curso[] = [];
+  showModal = false;
+  isEditing = false;
+  currentCurso: Curso = { id: 0, nombre: '', codigo: '' }; 
+
+  constructor(private CursosService: CursosService) {}
 
   ngOnInit(): void {
-    this.cursoService.getCursos().subscribe(
-      (data: any[]) => {
-        this.cursos = data;  // Asigna los datos a la variable de cursos
-        console.log('Cursos:', this.cursos);  
-      },
-      (error) => {
-        console.error('Error al obtener los cursos', error);  
-      }
-    );
+    this.loadCursos();
+  }
+
+  loadCursos(): void {
+    this.CursosService.getCursos().subscribe(data => {
+      this.cursos = data;
+    });
+  }
+
+  openAddCursosModal(): void {
+    this.currentCurso = { id: 0, nombre: '', codigo: '' }; // Resetear el alumno actual para agregar uno nuevo
+    this.isEditing = false;
+    this.showModal = true;
+  }
+
+  openEditCursosModal(curso: Curso): void {
+    this.currentCurso = { ...curso }; 
+    this.isEditing = true;
+    this.showModal = true;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+  }
+
+  addCurso(): void {
+    this.CursosService.addCurso(this.currentCurso).subscribe(() => {
+      this.loadCursos();
+      this.closeModal();
+    });
+  }
+
+  updateCurso(): void {
+    this.CursosService.updateCurso(this.currentCurso.id, this.currentCurso).subscribe(() => {
+      this.loadCursos();
+      this.closeModal();
+    });
+  }
+
+  deleteCurso(id: number): void {
+    this.CursosService.deleteCurso((id)).subscribe(() => {
+      this.loadCursos();
+    });
   }
 }

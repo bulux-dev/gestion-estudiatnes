@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Curso = require('../models/curso');
-const db = require('../config/database')
+const db = require('../config/database');
 
 // Obtener todos los cursos
 router.get('/cursos', async (req, res) => {
@@ -31,7 +31,7 @@ router.delete('/alumnos/:id', async(req,res)=>{
       if(curso){
         res.json(curso);
       }else{
-        res.status(404).json({message:'Cruso no encontrado'});
+        res.status(404).json({message:'Cruso no enclearado'});
       }
 
     });
