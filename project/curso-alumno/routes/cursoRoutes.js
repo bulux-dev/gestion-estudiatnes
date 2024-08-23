@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/database');
+const Alumno = require('../models/alumno');
 
 // Obtener todos los cursos
 router.get('/cursos', async (req, res) => {
@@ -11,6 +12,19 @@ router.get('/cursos', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+
+//obtener alumno
+
+router.get('/alumnos', async (req, res) => {
+  try {
+    const alumnos = await Alumno.findAll();
+    res.json(alumnos);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 // Obtener un curso por ID
 router.get('/cursos/:id', async (req, res) => {
@@ -80,5 +94,32 @@ router.post('/cursos/', async(req,res)=>{
   }
 });
 
+
+router.post('/inscripciones/', async (req, res) => {
+  const { cursoId, alumnoId } = req.body;  // Asegúrate de que estas propiedades estén en el cuerpo de la petición
+  if (!cursoId || !alumnoId) {
+    return res.status(400).json({ message: 'Faltan cursoId o alumnoId' });
+  }
+  try {
+    const [result] = await db.query(`INSERT INTO inscripcions (cursoId, alumnoId) VALUES (${cursoId}, ${alumnoId})`);
+
+    if (result.affectedRows > 0) {
+      res.json({ message: 'Asignación realizada correctamente' });
+    } else {
+      res.status(500).json({ message: 'No se pudo realizar la asignación' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error al realizar la asignación', error: error.message });
+  }
+});
+
+
+/**
+ * crear funcion para hacer el insert
+ * entonces en el insert enviar el id del curso y id del alumno
+ * para update lo mismo
+ * 
+ * 
+ */
 
 module.exports = router;

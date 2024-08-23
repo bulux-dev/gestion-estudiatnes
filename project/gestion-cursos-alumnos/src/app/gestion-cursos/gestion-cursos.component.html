@@ -20,6 +20,7 @@
       <td>
         <button (click)="openEditCursosModal(curso)">Editar</button>
         <button (click)="deleteCurso(curso.id)">Eliminar</button>
+        <button (click)="openAssignCursosModal(curso)">Asignar</button>
       </td>
     </tr>
   </tbody>
@@ -43,6 +44,26 @@
     </form>
   </div>
 </div>
+
+
+<div *ngIf="showAssignModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h3>Asignar Curso</h3>
+    <form (ngSubmit)="asignarCurso()">
+      <div>
+        <label for="alumno">Alumno:</label>
+        <select id="alumno" [(ngModel)]="currentAsignacion.alumnoId" name="alumno" required>
+          <option *ngFor="let alumno of alumnos" [value]="alumno.id">{{ alumno.nombre }}</option>
+        </select>
+      </div>
+      <button type="submit">Asignar</button>
+    </form>
+  </div>
+</div>
+
+
+
 
 <!-- Estilos básicos para el modal -->
 <style>

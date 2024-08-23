@@ -30,6 +30,7 @@ app.use('/api/cursos', cursoRoutes);
 app.use('/api', cursoRoutes);
 app.use('/api', alumnoRoutes);
 app.use('/api', inscripcionRoutes);
+app.use('/api/inscripciones',inscripcionRoutes);
 //app.use('/api/inscripciones', inscripcionRoutes);
 
 // Ruta raíz

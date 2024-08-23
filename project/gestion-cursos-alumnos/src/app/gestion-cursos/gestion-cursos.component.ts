@@ -7,6 +7,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { GestionCursosModule } from './gestion-cursos.module';
+import { Alumno } from '../models/alumno.model';
+import { AlumnosService } from '../servicios/alumnos.service';
+import { Asignacion } from '../models/asignacion.model';
 
 
 
@@ -18,19 +21,29 @@ import { GestionCursosModule } from './gestion-cursos.module';
 
 export class GestionCursosComponent implements OnInit {
   cursos: Curso[] = [];
+  alumnos: Alumno[] = [];
   showModal = false;
   isEditing = false;
+  showAssignModal = false;
   currentCurso: Curso = { id: 0, nombre: '', codigo: '' }; 
+  currentAlumno: Alumno = { id: 0, nombre: '', matricula: '' }; 
+  currentAsignacion: Asignacion = {cursoId: 0, alumnoId: 0};
 
-  constructor(private CursosService: CursosService) {}
+  constructor(private CursosService: CursosService, private AlumnosService: AlumnosService) {}
 
   ngOnInit(): void {
     this.loadCursos();
+    this.loadAlumnos();
   }
 
   loadCursos(): void {
     this.CursosService.getCursos().subscribe(data => {
       this.cursos = data;
+    });
+  }
+  loadAlumnos(): void {
+    this.AlumnosService.getAlumnos().subscribe(data => {
+      this.alumnos = data;
     });
   }
 
@@ -69,4 +82,43 @@ export class GestionCursosComponent implements OnInit {
       this.loadCursos();
     });
   }
+  assignCurso(): void {
+   
+  }
+
+  openAssignCursosModal(curso: Curso): void {
+    console.log('hi')
+    console.log('Alumnos: ',this.alumnos);
+    console.log('Cursos: ',this.cursos);
+    this.currentCurso = curso;
+    this.currentAsignacion = { cursoId:this.currentCurso.id,alumnoId:0 }; // Resetear el alumno actual para agregar uno nuevo
+    this.isEditing = false;
+    this.showAssignModal = true;
+  }
+
+  
+  editAssignCurso(): void {
+    this.CursosService.addCurso(this.currentCurso).subscribe(() => {
+      this.loadCursos();
+      this.closeModal();
+    });
+  }
+
+  asignarCurso(): void {
+    const asignacion = {
+      cursoId: this.currentAsignacion.cursoId,
+      alumnoId: this.currentAsignacion.alumnoId
+    };
+    console.log('Datos enviado: ',asignacion);
+
+    this.CursosService.asignarCurso(asignacion).subscribe(()=>{
+      this.closeModal();
+      this.loadCursos();
+    },error =>{
+      console.log('Error');
+    })
+  }
+
+  
+
 }
