@@ -1,40 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const Inscripcion = require('../models/inscripcion'); 
+const db = require('../config/database')
 
 // GET /api/inscripciones
-router.get('/', async (req, res) => {
-  try {
-    const inscripciones = await Inscripcion.findAll();
-    res.json(inscripciones);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
-// POST /api/inscripciones
-router.post('/', async (req, res) => {
+//estudiantes en el curso
+router.get('/cursos/:cursoId/estudiantes', async (req, res) => {
   try {
-    const { cursoId, alumnoId } = req.body;
-    const nuevaInscripcion = await Inscripcion.create({ cursoId, alumnoId });
-    res.status(201).json(nuevaInscripcion);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+    const cursoId = req.params.cursoId;
 
-// DELETE /api/inscripciones/:id
-router.delete('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const inscripcion = await Inscripcion.destroy({ where: { id } });
-    if (inscripcion) {
-      res.status(204).end();
+    // Consulta para obtener los estudiantes inscritos en el curso
+    const [results] = await db.query(`
+      select
+        alumnos.nombre as nombre_alumno,
+        cursos.nombre as nombre_curso,
+        cursos.codigo as codigo_curso
+      from
+        inscripcions
+        inner join alumnos on inscripcions.alumnoId = alumnos.id
+        inner join cursos on inscripcions.cursoId = cursos.id
+        where cursos.id = 3;
+    `);
+
+    if (results.length > 0) {
+      res.json(results);
     } else {
-      res.status(404).json({ error: 'Inscripcion no encontrada' });
+      res.status(404).json({ message: 'No hay estudiantes inscritos en este curso' });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 

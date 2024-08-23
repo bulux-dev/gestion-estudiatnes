@@ -8,22 +8,14 @@ import { Inscripcion } from '../models/inscripcion.model';
   providedIn: 'root'
 })
 export class InscripcionesService {
-  createInscripcion(nuevaInscripcion: Inscripcion) {
-    throw new Error('Method not implemented.');
-  }
   private apiUrl = 'http://localhost:3000/api/inscripciones';
 
   constructor(private http: HttpClient) {}
 
-  getInscripciones(): Observable<Inscripcion[]> {
-    return this.http.get<Inscripcion[]>(this.apiUrl);
+  inscribirEstudiante(estudianteId: number, cursoId: number): Observable<any> {
+    return this.http.post<any>(this.apiUrl, { estudiante_id: estudianteId, curso_id: cursoId });
   }
-
-  addInscripcion(inscripcion: Inscripcion): Observable<Inscripcion> {
-    return this.http.post<Inscripcion>(this.apiUrl, inscripcion);
-  }
-
-  deleteInscripcion(cursoId: number, alumnoId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${cursoId}/${alumnoId}`);
+  obtenerEstudiantesPorCurso(cursoId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/cursos/${cursoId}/estudiantes`);
   }
 }

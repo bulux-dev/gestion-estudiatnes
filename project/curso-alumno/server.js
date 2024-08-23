@@ -4,7 +4,8 @@ const sequelize = require('./config/database');
 const app = express();
 const port = 3000;
 const cors = require('cors')
-
+const Curso = require('./models/curso')
+const Alumno = require('./models/alumno');
 // Importar rutas
 const cursoRoutes = require('./routes/cursoRoutes');
 const alumnoRoutes = require('./routes/alumnoRoutes');
@@ -28,7 +29,7 @@ app.use('/api/cursos', cursoRoutes);
 
 app.use('/api', cursoRoutes);
 app.use('/api', alumnoRoutes);
-//app.use('/api', inscripcionRoutes);
+app.use('/api', inscripcionRoutes);
 //app.use('/api/inscripciones', inscripcionRoutes);
 
 // Ruta raíz
