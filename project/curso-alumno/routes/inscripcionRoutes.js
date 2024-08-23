@@ -20,7 +20,7 @@ router.get('/cursos/:cursoId/estudiantes', async (req, res) => {
         inscripcions
         inner join alumnos on inscripcions.alumnoId = alumnos.id
         inner join cursos on inscripcions.cursoId = cursos.id
-        where cursos.id = 3;
+        where cursos.id = ${req.params.cursoId};
     `);
 
     if (results.length > 0) {
