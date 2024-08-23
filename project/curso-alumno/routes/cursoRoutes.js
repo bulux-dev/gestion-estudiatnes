@@ -27,21 +27,24 @@ router.get('/cursos/:id', async (req, res) => {
 });
 
 // Eliminar un curso por ID
-  router.delete('/cursos/:id',async(req,res)=>{
-    console.log(req.params);
-    try{
-      db.query(`DELETE FROM cursos WHERE codigo = ${req.params.id}`,(err,results)=>{
-        const curso = req.json(results[0]);});
-        if(curso){
-          res.json(curso);
-        }else{
-          res.status(404).json({message: 'Curso no encontrado'});
-        }
+router.delete('/cursos/:id', async (req, res) => {
+  try {
+    db.query(`DELETE FROM cursos WHERE id = ${req.params.id}`, (err, results) => {
+      if (err) {
+        return res.status(500).json({ message: 'Error al eliminar el curso', error: err.message });
+      }
 
-    }catch(error){
-      res.status(500).json({message: error.message});
-    }
-  })
+      if (results.affectedRows > 0) {
+        res.json({ message: 'Curso eliminado correctamente' });
+      } else {
+        res.status(404).json({ message: 'Curso no encontrado' });
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 // Actualizar un curso
 
