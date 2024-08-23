@@ -7,6 +7,8 @@ import { AlumnosService } from '../servicios/alumnos.service';
 import { Alumno } from '../models/alumno.model';
 import { NgModel } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 
 //const cors = require('cors');
 //app.use(cors());
@@ -22,6 +24,9 @@ export class AsignacionCursosComponent implements OnInit {
   todosAlumnos: any[]=[];
   currentAsignacion: any ={alumnoId: null};
   showAssignModal = false;
+  alumnos: any[] = [];
+  
+  
 
   constructor(
     private http: HttpClient, 
@@ -34,14 +39,12 @@ export class AsignacionCursosComponent implements OnInit {
         this.cursos = data;
       });
   }
-  verAlumnosInscritos(cursoId: number): void {
-    this.http.get<any[]>(`http://localhost:3000/api/inscripciones/cursos/${cursoId}/estudiantes`)
-      .subscribe(data => {
-        console.log('Alumnos inscritos:', data);
-        // Puedes mostrar los datos en un modal o en algún otro lugar
-      }, error => {
-        console.error('Error al obtener alumnos inscritos:', error);
+  verAlumnosInscritos(): void {
+    if (this.selectedCursoId !== null) {
+      this.alumnosService.obtenerAlumnosInscritos(this.selectedCursoId).subscribe(alumnos => {
+        this.alumnosInscritos = alumnos;
       });
+    }
   }
   removerAlumno(cursoId: number): void {
     // Aquí puedes implementar una lógica para seleccionar un alumno para remover
@@ -58,6 +61,13 @@ export class AsignacionCursosComponent implements OnInit {
         });
     }
   }
+  cargarCursos(): void {
+    this.cursoService.obtenerCursos().subscribe(cursos => {
+      this.cursos = cursos;
+    });
+  }
   
-  
+  closeModal(): void {
+    this.showAssignModal = false;
+  }
 }

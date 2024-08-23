@@ -14,8 +14,7 @@
     <tr *ngFor="let curso of cursos">
       <td>{{ curso.nombre }}</td>
       <td>
-        <button (click)="verAlumnosInscritos(curso.id)">Ver alumnos inscritos</button>
-        <button (click)="removerAlumno(curso.id)">Remover alumnos inscritos</button>
+        <button (click)="verAlumnosInscritos()">Ver alumnos inscritos</button>
       </td>
     </tr>
   </tbody>
@@ -23,9 +22,32 @@
 
 <!-- Modal para agregar/editar cursos -->
 
-
-
-
+<div *ngIf="showAssignModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h3>Ver Alumnos Inscritos</h3>
+    <form (ngSubmit)="verAlumnosInscritos()">
+      <div>
+        <label for="curso">Curso:</label>
+        <select id="curso" [(ngModel)]="selectedCursoId" name="curso" required>
+          <option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nombre }}</option>
+        </select>
+      </div>
+      <button type="submit">Ver Alumnos</button>
+    </form>
+    <div *ngIf="alumnosInscritos.length > 0">
+      <h4>Alumnos Inscritos:</h4>
+      <ul>
+        <li *ngFor="let alumno of alumnosInscritos">
+          {{ alumno.nombre }}
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="alumnosInscritos.length === 0">
+      <p>No hay alumnos inscritos en este curso.</p>
+    </div>
+  </div>
+</div>
 
 <!-- Estilos básicos para el modal -->
 <style>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Alumno } from '../models/alumno.model';
+import { FormsModule } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -27,4 +28,10 @@ export class AlumnosService {
   deleteAlumno(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  obtenerAlumnosInscritos(cursoId: number): Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/inscritos/${cursoId}`);
+  }
+
+
 }

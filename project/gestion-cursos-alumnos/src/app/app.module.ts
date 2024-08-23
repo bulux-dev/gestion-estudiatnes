@@ -8,6 +8,10 @@ import { GestionInscripcionesComponent } from './gestion-inscripciones/gestion-i
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CursosService } from './servicios/cursos.service';
+import { AsignacionCursosModule } from './asignacion-cursos/asignacion-cursos.module';
+
+
 
 @NgModule({
     declarations: [
@@ -17,8 +21,11 @@ import { FormsModule } from '@angular/forms';
     imports: [
       BrowserModule,
       FormsModule, // Asegúrate de importar FormsModule aquí
+      HttpClientModule,
+      AppRoutingModule,
+      AsignacionCursosModule
     ],
-    providers: [],
+    providers: [CursosService],
     bootstrap: [AppComponent]
   })
   export class AppModule { }

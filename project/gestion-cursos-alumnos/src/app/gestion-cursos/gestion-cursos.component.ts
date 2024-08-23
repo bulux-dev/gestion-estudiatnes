@@ -28,6 +28,7 @@ export class GestionCursosComponent implements OnInit {
   currentCurso: Curso = { id: 0, nombre: '', codigo: '' }; 
   currentAlumno: Alumno = { id: 0, nombre: '', matricula: '' }; 
   currentAsignacion: Asignacion = {cursoId: 0, alumnoId: 0};
+  
 
   constructor(private CursosService: CursosService, private AlumnosService: AlumnosService) {}
 

@@ -14,8 +14,8 @@ router.get('/', async (req, res) => {
     const inscripciones = await Inscripcion.findAll();
     res.json(inscripciones.map(inscripcion => ({
       id: inscripcion.id,
-      matricula: inscripcion.matricula,
-      nombre: inscripcion.nombre,
+      alumnoId: inscripcion.alumnoId,
+      cursoId: inscripcion.cursoId,
     })));
   } catch (error) {
     res.status(500).json({ error: error.message });

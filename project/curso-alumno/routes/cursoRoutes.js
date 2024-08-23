@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/database');
 const Alumno = require('../models/alumno');
+const Curso = require('../models/curso')
+
+
 
 // Obtener todos los cursos
 router.get('/cursos', async (req, res) => {
@@ -111,6 +114,31 @@ router.post('/inscripciones/', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error al realizar la asignación', error: error.message });
   }
+
+  router.get('/:cursoId/alumnos', async (req, res) => {
+    try {
+      const cursoId = req.params.cursoId;
+      const curso = await Curso.findByPk(cursoId, {
+        include: [Alumno]
+      });
+      
+      if (!curso) {
+        return res.status(404).json({ message: 'Curso no encontrado' });
+      }
+  
+      res.json(curso.Alumnos); // Devuelve la lista de alumnos
+    } catch (error) {
+      res.status(500).json({ message: 'Error al obtener alumnos', error });
+    }
+  });
+  router.get('/cursos', async (req, res) => {
+    try {
+      const cursos = await Curso.findAll(); // Encuentra todos los cursos
+      res.json(cursos);
+    } catch (error) {
+      res.status(500).json({ error: 'Error al obtener los cursos' });
+    }
+  });
 });
 
 
