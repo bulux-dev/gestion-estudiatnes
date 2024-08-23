@@ -24,18 +24,7 @@ export class GestionInscripcionesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.inscripcionesService.getInscripciones().subscribe(data => {
-      this.inscripciones = data;
-    });
-
-    this.cursosService.getCursos().subscribe(data => {
-      this.cursos = data;
-    });
-
-    this.alumnosService.getAlumnos().subscribe(data => {
-      this.alumnos = data;
-    });
   }
 
-  // Métodos adicionales para inscribir y desinscribir alumnos en cursos.
+  // Métodos adicionales para inscribir y desinscribir alumnos en cursos.inscripcions
 }

@@ -21,10 +21,11 @@ export class CursosService {
   }
 
   updateCurso(id: number, curso: Curso): Observable<Curso> {
-    return this.http.put<Curso>(`${this.apiUrl}/${id}`, curso);
-  }
+  return this.http.put<Curso>(`${this.apiUrl}/${id}`, curso);
+}
+
 
   deleteCurso(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
