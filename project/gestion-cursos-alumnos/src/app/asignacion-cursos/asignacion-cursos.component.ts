@@ -46,6 +46,10 @@ export class AsignacionCursosComponent implements OnInit {
       });
     }
   }
+
+  eliminarAlumnoInscrito(){
+    
+  }
   removerAlumno(cursoId: number): void {
     // Aquí puedes implementar una lógica para seleccionar un alumno para remover
     // Ejemplo: Obtener el ID del alumno desde una selección en la UI
